@@ -1,0 +1,42 @@
+#!/usr/bin/env python
+import json
+
+import os
+import urllib
+import zipfile
+
+__author__ = 'kristoffer'
+
+download_dir = "/download"
+
+
+def _read_manifest(path):
+    with open(path + "/src/manifest.json", 'r') as file:
+        return json.load(file)
+
+
+def _download(path, manifest):
+    for file_name, file_def in manifest['files'].iteritems():
+        url = 'https://github.com/bitcraze/' + file_def[
+            'repository'] + '/releases/download/' + file_def[
+            'release'] + '/' + file_name
+        dest = path + download_dir + "/" + file_name
+
+        print("Downloading " + url)
+        urllib.urlretrieve(url, dest)
+
+
+def _create_zip(path, manifest):
+    zip_name = path + '/crazyflie-' + manifest['release'] + '.zip'
+    zf = zipfile.ZipFile(zip_name, mode='w')
+    zf.write(path + "/src/manifest.json", arcname='manifest.json')
+    for file_name in manifest['files']:
+        zf.write(path + download_dir + "/" + file_name, arcname=file_name)
+    zf.close()
+    print("Created " + zip_name)
+
+
+root_dir = os.path.dirname(os.path.realpath(__file__)) + "/../.."
+manifest = _read_manifest(root_dir)
+_download(root_dir, manifest)
+_create_zip(root_dir, manifest)
