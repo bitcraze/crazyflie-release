@@ -1,9 +1,9 @@
-# crazyflie-release
+# crazyflie-release [![Build Status](https://api.travis-ci.org/bitcraze/crazyflie-release.svg)](https://travis-ci.org/bitcraze/crazyflie-release)
 Release repository for binaries.
 
 This repository contains functionality for collecting build artifacts
-from other repositories, and pacage them into a zip that can be used to flash
-firmware in a Crazyfile.
+from other repositories, and package them into a zip that can be used to flash
+a Crazyfile with firmware.
 
 # Building
 To create a build artifact, call
