@@ -1,4 +1,15 @@
 {
-  "artifactType": "python",
-  "buildScript": "tools/build/build"
+  "version": "1.0",
+  "environmentReq": [
+    "python2"
+  ],
+  "artifacts": {
+    "file": [
+      {
+        "source": "*.zip",
+        "insertTag": false,
+        "destination": "currDir"
+      }
+    ]
+  }
 }
