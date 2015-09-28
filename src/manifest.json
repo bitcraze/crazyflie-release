@@ -1,20 +1,20 @@
 {
     "version": 1,
     "subversion": 1,
-    "release": "2015.08",
+    "release": "2015.08.1",
     "files": {
-        "cf2-2015.08.bin": {
+        "cf2-2015.08.1.bin": {
             "platform": "cf2",
             "target": "stm32",
             "type": "fw",
-            "release": "2015.08",
+            "release": "2015.08.1",
             "repository": "crazyflie-firmware"
         },
-        "cf2-nrf-2015.08.bin": {
+        "cf2-nrf-2015.08.1.bin": {
             "platform": "cf2",
             "target": "nrf51",
             "type": "fw",
-            "release": "2015.08",
+            "release": "2015.08.1",
             "repository": "crazyflie2-nrf-firmware"
         }
     }
