@@ -7,10 +7,11 @@ __author__ = 'kristoffer'
 try:
     script_dir = os.path.dirname(os.path.realpath(__file__))
 
-    params = ["pep8", "--statistics", "--filename=*", script_dir]
+    params = ["flake8", "--filename=*", script_dir]
     subprocess.check_call(params)
 
-    print("PEP8 check pass")
+    print("Flake8 check pass")
 except subprocess.CalledProcessError as e:
-    print("PEP8 check fail")
+    print("--------")
+    print("Flake8 check fail")
     raise e
