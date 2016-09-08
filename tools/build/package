@@ -10,6 +10,14 @@ __author__ = 'kristoffer'
 download_dir = "/download"
 
 
+class UrlOpenerError(urllib.FancyURLopener):
+    def http_error_default(self, req, fp, code, msg, hdrs):
+        if code > 400:
+            print("Failed to download, HTTP response code {} {}. Aborting".
+                  format(code, msg))
+            exit(1)
+
+
 def _read_manifest(path):
     with open(path + "/src/manifest.json", 'r') as file:
         return json.load(file)
@@ -23,7 +31,7 @@ def _download(path, manifest):
         dest = path + download_dir + "/" + file_name
 
         print("Downloading " + url)
-        urllib.urlretrieve(url, dest)
+        UrlOpenerError().retrieve(url, dest)
 
 
 def _create_zip(path, manifest):
