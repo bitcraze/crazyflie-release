@@ -1,7 +1,7 @@
 {
     "version": 1,
     "subversion": 1,
-    "release": "2016.09",
+    "release": "2016.11",
     "files": {
         "cf2-2016.09.bin": {
             "platform": "cf2",
@@ -10,11 +10,11 @@
             "release": "2016.09",
             "repository": "crazyflie-firmware"
         },
-        "cf2_nrf-2016.09.bin": {
+        "cf2_nrf-2016.11.bin": {
             "platform": "cf2",
             "target": "nrf51",
             "type": "fw",
-            "release": "2016.09",
+            "release": "2016.11",
             "repository": "crazyflie2-nrf-firmware"
         },
         "cf1-2016.09.bin": {
