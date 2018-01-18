@@ -16,13 +16,6 @@
             "type": "fw",
             "release": "2018.01",
             "repository": "crazyflie2-nrf-firmware"
-        },
-        "cf1-2017.06.bin": {
-            "platform": "cf1",
-            "target": "stm32",
-            "type": "fw",
-            "release": "2017.06",
-            "repository": "crazyflie-firmware"
         }
     }
 }
