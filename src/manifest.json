@@ -3,11 +3,11 @@
     "subversion": 1,
     "release": "2018.01",
     "files": {
-        "cf2-2018.01.bin": {
+        "cf2-2018.01.1.bin": {
             "platform": "cf2",
             "target": "stm32",
             "type": "fw",
-            "release": "2018.01",
+            "release": "2018.01.1",
             "repository": "crazyflie-firmware"
         },
         "cf2_nrf-2018.01.bin": {
