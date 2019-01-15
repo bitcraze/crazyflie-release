@@ -1,20 +1,20 @@
 {
     "version": 1,
     "subversion": 1,
-    "release": "2018.12",
+    "release": "2019.01",
     "files": {
-        "cf2-2018.12.bin": {
+        "cf2-2019.01.bin": {
             "platform": "cf2",
             "target": "stm32",
             "type": "fw",
-            "release": "2018.12",
+            "release": "2019.01",
             "repository": "crazyflie-firmware"
         },
-        "cf2_nrf-2018.12.bin": {
+        "cf2_nrf-2019.01.bin": {
             "platform": "cf2",
             "target": "nrf51",
             "type": "fw",
-            "release": "2018.12",
+            "release": "2019.01",
             "repository": "crazyflie2-nrf-firmware"
         }
     }
