@@ -8,7 +8,7 @@ a Crazyfile with firmware.
 # Building
 To create a build artifact, call
 
-        tools/build/build
+        tools/build/build platform
 
 This will download the files specified in the manifest and package them into
 a zip file.
