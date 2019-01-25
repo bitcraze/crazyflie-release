@@ -1,6 +1,7 @@
 {
     "version": 1,
-    "subversion": 1,
+    "subversion": 2,
+    "fw_platform": "{{platform}}",
     "release": "{{release-version}}",
     "files": {
         "{{platform}}-{{stm-version}}.bin": {

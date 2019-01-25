@@ -47,8 +47,9 @@ def _download(path, manifest):
         UrlOpenerError().retrieve(url, dest)
 
 
-def _create_zip(path, manifest):
-    zip_name = path + '/crazyflie-' + manifest['release'] + '.zip'
+def _create_zip(path, manifest, platform):
+    zip_name = \
+        path + '/firmware-' + platform + '-' + manifest['release'] + '.zip'
     zf = zipfile.ZipFile(zip_name, mode='w')
     zf.writestr('manifest.json', json.dumps(manifest))
     for file_name in manifest['files']:
@@ -73,7 +74,7 @@ def _main(argv):
 
     manifest = _read_manifest(root_dir, platform, versions)
     _download(root_dir, manifest)
-    _create_zip(root_dir, manifest)
+    _create_zip(root_dir, manifest, platform)
 
 
 _main(sys.argv)
