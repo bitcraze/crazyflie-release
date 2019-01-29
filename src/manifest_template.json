@@ -11,7 +11,7 @@
             "release": "{{stm-version}}",
             "repository": "crazyflie-firmware"
         },
-        "cf2_nrf-{{nrf-version}}.bin": {
+        "{{platform}}_nrf-{{nrf-version}}.bin": {
             "platform": "cf2",
             "target": "nrf51",
             "type": "fw",
