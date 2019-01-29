@@ -5,4 +5,5 @@ python:
 services:
   - docker
 script:
-  - docker run --rm -v ${PWD}:/module bitcraze/builder ./tools/build/build
+  - docker run --rm -v ${PWD}:/module bitcraze/builder ./tools/build/build cf2
+  - docker run --rm -v ${PWD}:/module bitcraze/builder ./tools/build/build tag
