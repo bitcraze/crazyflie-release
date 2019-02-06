@@ -1,5 +1,5 @@
 {
-  "crazyflie-release": "2019.02",
+  "crazyflie-release": "2019.02.1",
   "crazyflie-firmware": "2019.02",
-  "crazyflie2-nrf-firmware": "2019.02"
+  "crazyflie2-nrf-firmware": "2019.02.1"
 }
