@@ -1,4 +1,4 @@
-# crazyflie-release [![Build Status](https://api.travis-ci.org/bitcraze/crazyflie-release.svg)](https://travis-ci.org/bitcraze/crazyflie-release)
+# crazyflie-release [![CI](https://github.com/bitcraze/crazyflie-release/workflows/CI/badge.svg)](https://github.com/bitcraze/crazyflie-release/actions?query=workflow%3ACI)
 Release repository for binaries.
 
 This repository contains functionality for collecting build artifacts
