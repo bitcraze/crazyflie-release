@@ -20,10 +20,11 @@ def _read_manifest(path, platform, versions):
     with open(path + '/src/manifest_template.json', 'r') as file:
         if __name__ == '__main__':
             json_data = file.read().\
-                replace('{{platform}}', platform).\
-                replace('{{release-version}}', versions['crazyflie-release']).\
-                replace('{{stm-version}}', versions['crazyflie-firmware']).\
-                replace('{{nrf-version}}', versions['crazyflie2-nrf-firmware'])
+                replace('{{platform}}', platform)
+
+            for tag, replacement in versions.items():
+                target = '{{' + tag + '}}'
+                json_data = json_data.replace(target, replacement)
 
             return json.loads(json_data)
 

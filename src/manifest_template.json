@@ -2,20 +2,20 @@
     "version": 1,
     "subversion": 2,
     "fw_platform": "{{platform}}",
-    "release": "{{release-version}}",
+    "release": "{{crazyflie-release-version}}",
     "files": {
-        "{{platform}}-{{stm-version}}.bin": {
+        "{{platform}}-{{crazyflie-firmware-version}}.bin": {
             "platform": "cf2",
             "target": "stm32",
             "type": "fw",
-            "release": "{{stm-version}}",
+            "release": "{{crazyflie-firmware-version}}",
             "repository": "crazyflie-firmware"
         },
-        "{{platform}}_nrf-{{nrf-version}}.bin": {
+        "{{platform}}_nrf-{{crazyflie2-nrf-firmware-version}}.bin": {
             "platform": "cf2",
             "target": "nrf51",
             "type": "fw",
-            "release": "{{nrf-version}}",
+            "release": "{{crazyflie2-nrf-firmware-version}}",
             "repository": "crazyflie2-nrf-firmware"
         }
     }

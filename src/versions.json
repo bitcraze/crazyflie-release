@@ -1,5 +1,5 @@
 {
-  "crazyflie-release": "2021.01",
-  "crazyflie-firmware": "2021.01",
-  "crazyflie2-nrf-firmware": "2020.09"
+  "crazyflie-release-version": "2021.01",
+  "crazyflie-firmware-version": "2021.01",
+  "crazyflie2-nrf-firmware-version": "2020.09",
 }
