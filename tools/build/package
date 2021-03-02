@@ -1,22 +1,14 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import json
 
 import os
 import sys
-import urllib
+import urllib.request
 import zipfile
 
 __author__ = 'kristoffer'
 
 download_dir = "/download"
-
-
-class UrlOpenerError(urllib.FancyURLopener):
-    def http_error_default(self, req, fp, code, msg, hdrs):
-        if code > 400:
-            print("Failed to download, HTTP response code {} {}. Aborting".
-                  format(code, msg))
-            exit(1)
 
 
 def _read_versions(path):
@@ -37,14 +29,14 @@ def _read_manifest(path, platform, versions):
 
 
 def _download(path, manifest):
-    for file_name, file_def in manifest['files'].iteritems():
+    for file_name, file_def in manifest['files'].items():
         url = 'https://github.com/bitcraze/' + file_def[
             'repository'] + '/releases/download/' + file_def[
             'release'] + '/' + file_name
         dest = path + download_dir + "/" + file_name
 
         print("Downloading " + url)
-        UrlOpenerError().retrieve(url, dest)
+        urllib.request.urlretrieve(url, dest)
 
 
 def _create_zip(path, manifest, platform):
