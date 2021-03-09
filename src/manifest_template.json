@@ -17,6 +17,13 @@
             "type": "fw",
             "release": "{{crazyflie2-nrf-firmware-version}}",
             "repository": "crazyflie2-nrf-firmware"
+        },
+        "lighthouse.bin": {
+            "platform": "deck",
+            "target": "bcLighthouse4",
+            "type": "fw",
+            "release": "{{lighthouse-fpga-version}}",
+            "repository": "lighthouse-fpga"
         }
     }
 }
