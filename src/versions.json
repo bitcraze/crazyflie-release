@@ -1,6 +1,6 @@
 {
-  "crazyflie-release-version": "2021.01",
-  "crazyflie-firmware-version": "2021.01",
-  "crazyflie2-nrf-firmware-version": "2020.09",
-  "lighthouse-fpga-version": "V5"
+  "crazyflie-release-version": "2021.03-rc1",
+  "crazyflie-firmware-version": "2021.03-rc1",
+  "crazyflie2-nrf-firmware-version": "2021.03-rc1",
+  "lighthouse-fpga-version": "V6"
 }
