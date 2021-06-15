@@ -17,6 +17,7 @@ jobs:
     
     env:
       PLATFORM: ${{ matrix.platform }}
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
     steps:
     - uses: actions/checkout@v2
