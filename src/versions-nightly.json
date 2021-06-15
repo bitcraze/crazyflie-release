@@ -1,0 +1,6 @@
+{
+  "crazyflie-release-version": "nightly",
+  "crazyflie-firmware-version": "latest",
+  "crazyflie2-nrf-firmware-version": "latest",
+  "lighthouse-fpga-version": "V6"
+}

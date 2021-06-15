@@ -1,0 +1,38 @@
+# Build the project using the Bitcraze builder docker image
+name: CI
+
+on:
+  workflow_dispatch:
+  schedule:
+  - cron:  '0 0 * * *'
+
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    strategy:
+      matrix:
+        platform: [cf2, tag]
+    
+    env:
+      PLATFORM: ${{ matrix.platform }}
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    
+    - name: Install dependency
+      run: pip3 install jinja2
+
+    - name: Check and build
+      run: ./tools/build/build $PLATFORM nightly
+    
+    - name: Upload Build Artifact
+      uses: actions/upload-artifact@v2.1.4
+      with:
+        name: nightly
+        path: firmware-${{ platform }}-nightly.zip

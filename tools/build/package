@@ -5,39 +5,91 @@ import os
 import sys
 import urllib.request
 import zipfile
+from string import Template
+import jinja2
+import zipfile
+import io
+import os
 
 __author__ = 'kristoffer'
 
 download_dir = "/download"
 
+GH_TOKEN = os.environ['GH_TOKEN']
+# "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"
 
-def _read_versions(path):
-    with open(path + '/src/versions.json', 'r') as file:
+def _read_versions(path, target_versions):
+    if len(target_versions) > 0:
+        target_versions = '-' + target_versions
+    with open(path + f'/src/versions{target_versions}.json', 'r') as file:
         return json.load(file)
 
 
 def _read_manifest(path, platform, versions):
     with open(path + '/src/manifest_template.json', 'r') as file:
-        if __name__ == '__main__':
-            json_data = file.read().\
-                replace('{{platform}}', platform)
+        template = file.read()
 
-            for tag, replacement in versions.items():
-                target = '{{' + tag + '}}'
-                json_data = json_data.replace(target, replacement)
+        values = versions
+        values["platform"] = platform
 
-            return json.loads(json_data)
+        json_data = jinja2.Template(template).render(versions=versions, platform=platform)
+        # json_data = Template(template).substitute(values)
+            
+        return json.loads(json_data)
+
+def _download_artifact(uri) -> io.BytesIO:
+    headers = {'Authorization': f'token {GH_TOKEN}'}
+    req = urllib.request.Request(uri, headers=headers)
+    with urllib.request.urlopen(req) as response:
+        data = response.read()
+    assert(data)
+    return io.BytesIO(data)
+
+def _download_latest(path, repository: str, platform: str) -> str:
+    url = f'https://api.github.com/repos/bitcraze/{repository}/actions/artifacts'
+    artifacts, _ = urllib.request.urlretrieve(url)
+
+    artifacts = json.load(open(artifacts, 'r'))
+
+    version = ""
+    for artifact in artifacts['artifacts']:
+        if artifact["name"].startswith(platform):
+            version = artifact['name'].replace(platform + "-", "")
+
+            # Download zip
+            archive = _download_artifact(artifact['archive_download_url'])
+
+            # Extract firmware from zip
+            archive = zipfile.ZipFile(archive)
+            firmware_filename = archive.filelist[0].filename
+            firmware = archive.read(firmware_filename)
+            with open(path + download_dir + "/" + firmware_filename, "wb") as dest:
+                dest.write(firmware)
+            
+            break
+
+    return version
 
 
 def _download(path, manifest):
-    for file_name, file_def in manifest['files'].items():
-        url = 'https://github.com/bitcraze/' + file_def[
-            'repository'] + '/releases/download/' + file_def[
-            'release'] + '/' + file_name
-        dest = path + download_dir + "/" + file_name
+    files_items = list(manifest['files'].items())
+    for file_name, file_def in files_items:
 
-        print("Downloading " + url)
-        urllib.request.urlretrieve(url, dest)
+        if file_def["release"] == "latest":
+            version = _download_latest(path, file_def['repository'], manifest['fw_platform'])
+            file_def["release"] = version
+
+            new_filename = file_name.replace('-latest', '')
+            manifest['files'][new_filename] = manifest['files'].pop(file_name)
+        else:
+            url = 'https://github.com/bitcraze/' + file_def[
+                'repository'] + '/releases/download/' + file_def[
+                'release'] + '/' + file_name
+            dest = path + download_dir + "/" + file_name
+
+            urllib.request.urlretrieve(url, dest)
+
+        print(file_name, file_def)
 
 
 def _create_zip(path, manifest, platform):
@@ -52,22 +104,27 @@ def _create_zip(path, manifest, platform):
 
 
 def _parse_args(argv):
-    if len(argv) != 2:
+    if len(argv) < 2:
         print("ERROR: Target platform missing")
         exit(-1)
+    
+    if len(argv) >= 3:
+        target_versions = argv[2]
+    else:
+        target_versions = ""
 
-    return argv[1]
+    return argv[1], target_versions
 
 
 def _main(argv):
     root_dir = os.path.dirname(os.path.realpath(__file__)) + "/../.."
-    platform = _parse_args(argv)
-    versions = _read_versions(root_dir)
+    platform, target_versions = _parse_args(argv)
+    versions = _read_versions(root_dir, target_versions)
     print("Building release for platform: " + platform)
 
     manifest = _read_manifest(root_dir, platform, versions)
     _download(root_dir, manifest)
     _create_zip(root_dir, manifest, platform)
 
-
-_main(sys.argv)
+if __name__ == '__main__':
+    _main(sys.argv)
