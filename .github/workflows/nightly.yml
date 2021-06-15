@@ -21,15 +21,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-    
-    - name: Install dependency
-      run: pip3 install jinja2
-
     - name: Check and build
-      run: ./tools/build/build $PLATFORM nightly
+      run: docker run --rm -v ${PWD}:/module bitcraze/builder -e GH_TOKEN:$GH_TOKEN ./tools/build/build $PLATFORM nightly
     
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2.1.4

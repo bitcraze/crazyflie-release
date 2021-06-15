@@ -2,27 +2,27 @@
     "version": 1,
     "subversion": 2,
     "fw_platform": "{{ platform }}",
-    "release": "{{ versions['crazyflie-release-version'] }}",
+    "release": "{{ crazyflie-release-version }}",
     "files": {
-        "{{platform}}-{{ versions['crazyflie-firmware-version'] }}.bin": {
+        "{{ platform }}-{{ crazyflie-firmware-version }}.bin": {
             "platform": "cf2",
             "target": "stm32",
             "type": "fw",
-            "release": "{{ versions['crazyflie-firmware-version'] }}",
+            "release": "{{ crazyflie-firmware-version }}",
             "repository": "crazyflie-firmware"
         },
-        "{{platform}}_nrf-{{ versions['crazyflie2-nrf-firmware-version'] }}.bin": {
+        "{{ platform }}_nrf-{{ crazyflie2-nrf-firmware-version }}.bin": {
             "platform": "cf2",
             "target": "nrf51",
             "type": "fw",
-            "release": "{{ versions['crazyflie2-nrf-firmware-version'] }}",
+            "release": "{{ crazyflie2-nrf-firmware-version }}",
             "repository": "crazyflie2-nrf-firmware"
         },
         "lighthouse.bin": {
             "platform": "deck",
             "target": "bcLighthouse4",
             "type": "fw",
-            "release": "{{ versions['lighthouse-fpga-version'] }}",
+            "release": "{{ lighthouse-fpga-version }}",
             "repository": "lighthouse-fpga"
         }
     }
