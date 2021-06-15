@@ -5,11 +5,7 @@ import os
 import sys
 import urllib.request
 import zipfile
-from string import Template
-import jinja2
-import zipfile
 import io
-import os
 
 __author__ = 'kristoffer'
 
@@ -17,17 +13,20 @@ download_dir = "/download"
 
 GH_TOKEN = os.environ['GH_TOKEN']
 
+
 def _read_versions(path, target_versions):
     if len(target_versions) > 0:
         target_versions = '-' + target_versions
     with open(path + f'/src/versions{target_versions}.json', 'r') as file:
         return json.load(file)
 
+
 def _apply_template(template: str, values: 'dict[str,str]') -> str:
     for name, value in values.items():
         print(name, value)
         template = template.replace('{{ ' + name + ' }}', value)
-    return template    
+    return template
+
 
 def _read_manifest(path, platform, versions):
     with open(path + '/src/manifest_template.json', 'r') as file:
@@ -37,8 +36,9 @@ def _read_manifest(path, platform, versions):
         values["platform"] = platform
 
         json_data = _apply_template(template, values)
-            
+
         return json.loads(json_data)
+
 
 def _download_artifact(uri) -> io.BytesIO:
     headers = {'Authorization': f'token {GH_TOKEN}'}
@@ -47,6 +47,7 @@ def _download_artifact(uri) -> io.BytesIO:
         data = response.read()
     assert(data)
     return io.BytesIO(data)
+
 
 def _download_latest(path, repository: str, platform: str) -> str:
     url = f'https://api.github.com/repos/bitcraze/{repository}/actions/artifacts'
@@ -68,7 +69,7 @@ def _download_latest(path, repository: str, platform: str) -> str:
             firmware = archive.read(firmware_filename)
             with open(path + download_dir + "/" + firmware_filename, "wb") as dest:
                 dest.write(firmware)
-            
+
             break
 
     return version
@@ -110,7 +111,7 @@ def _parse_args(argv):
     if len(argv) < 2:
         print("ERROR: Target platform missing")
         exit(-1)
-    
+
     if len(argv) >= 3:
         target_versions = argv[2]
     else:
@@ -128,6 +129,7 @@ def _main(argv):
     manifest = _read_manifest(root_dir, platform, versions)
     _download(root_dir, manifest)
     _create_zip(root_dir, manifest, platform)
+
 
 if __name__ == '__main__':
     _main(sys.argv)

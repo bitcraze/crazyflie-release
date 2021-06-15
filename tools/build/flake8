@@ -7,7 +7,7 @@ __author__ = 'kristoffer'
 try:
     script_dir = os.path.dirname(os.path.realpath(__file__))
 
-    params = ["flake8", "--filename=*", script_dir]
+    params = ["flake8", "--filename=*", script_dir, "--max-line-length", "120"]
     subprocess.check_call(params)
 
     print("Flake8 check pass")
