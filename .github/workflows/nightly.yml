@@ -1,5 +1,5 @@
 # Build the project using the Bitcraze builder docker image
-name: CI
+name: Nightly
 
 on:
   workflow_dispatch:
@@ -35,4 +35,4 @@ jobs:
       uses: actions/upload-artifact@v2.1.4
       with:
         name: nightly
-        path: firmware-${{ platform }}-nightly.zip
+        path: firmware-${{ matrix.platform }}-nightly.zip
