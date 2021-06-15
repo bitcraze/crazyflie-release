@@ -17,12 +17,13 @@ jobs:
     
     env:
       PLATFORM: ${{ matrix.platform }}
-      GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
     steps:
     - uses: actions/checkout@v2
 
     - name: Check and build
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
       run: docker run --rm -v ${PWD}:/module -e "GH_TOKEN=$GH_TOKEN" bitcraze/builder ./tools/build/build $PLATFORM nightly
     
     - name: Upload Build Artifact
