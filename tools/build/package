@@ -11,8 +11,6 @@ __author__ = 'kristoffer'
 
 download_dir = "/download"
 
-GH_TOKEN = os.environ['GH_TOKEN']
-
 
 def _read_versions(path, target_versions):
     if len(target_versions) > 0:
@@ -41,6 +39,8 @@ def _read_manifest(path, platform, versions):
 
 
 def _download_artifact(uri) -> io.BytesIO:
+    GH_TOKEN = os.environ['GH_TOKEN']
+
     headers = {'Authorization': f'token {GH_TOKEN}'}
     req = urllib.request.Request(uri, headers=headers)
     with urllib.request.urlopen(req) as response:
