@@ -24,6 +24,13 @@
             "type": "fw",
             "release": "{{ lighthouse-fpga-version }}",
             "repository": "lighthouse-fpga"
+        },
+        "aideck-NINA-firmware.bin": {
+            "platform": "deck",
+            "target": "bcAI",
+            "type": "fw",
+            "release": "{{ aideck-NINA-firmware-version }}",
+            "repository": "aideck-NINA-firmware"
         }
     }
 }
