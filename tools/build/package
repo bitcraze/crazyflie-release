@@ -50,10 +50,17 @@ def _download_artifact(uri) -> io.BytesIO:
 
 
 def _download_latest(path, repository: str, platform: str) -> str:
-    url = f'https://api.github.com/repos/bitcraze/{repository}/actions/artifacts'
-    artifacts, _ = urllib.request.urlretrieve(url)
+    _repo_info, _ = urllib.request.urlretrieve(f'https://api.github.com/repos/bitcraze/{repository}')
+    repo_info = json.load(open(_repo_info, 'r'))
+    default_branch = repo_info["default_branch"]
 
-    artifacts = json.load(open(artifacts, 'r'))
+    run_url = f'https://api.github.com/repos/bitcraze/{repository}/actions/runs?branch={default_branch};pages=1'
+    _run_info, _ = urllib.request.urlretrieve(run_url)
+    run_info = json.load(open(_run_info, 'r'))
+    artifacts_url = run_info['workflow_runs'][0]['artifacts_url']
+
+    _artifacts, _ = urllib.request.urlretrieve(artifacts_url)
+    artifacts = json.load(open(_artifacts, 'r'))
 
     version = ""
     for artifact in artifacts['artifacts']:
