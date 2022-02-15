@@ -8,9 +8,8 @@ for download.
 
 # Install a release
 
-There are two flavours of the firmware: **cf2** and **tag**. The **cf2** is to be
-used wit any of the Crazyflie 2.X drones while the **tag** is used with the
-Roadrunner.
+There are three flavours of the firmware: **cf2**, **tag** and **bolt**. The **cf2** is to be
+used with any of the Crazyflie 2.X drones, the **tag** is used with the Roadrunner and the **bolt** with the Crazyflie Bolt.
 
 The easiest way to flash the zip to a device is to use the python client, please
 see [the getting started guide](https://www.bitcraze.io/documentation/tutorials/getting-started-with-crazyflie-2-x/#update-fw).

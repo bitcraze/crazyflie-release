@@ -13,8 +13,8 @@ jobs:
 
     strategy:
       matrix:
-        platform: [cf2, tag]
-    
+        platform: [cf2, tag, bolt]
+
     env:
       PLATFORM: ${{ matrix.platform }}
 
@@ -25,7 +25,7 @@ jobs:
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
       run: docker run --rm -v ${PWD}:/module -e "GH_TOKEN=$GH_TOKEN" bitcraze/builder ./tools/build/build $PLATFORM nightly
-    
+
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2.1.4
       with:
