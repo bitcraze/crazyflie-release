@@ -2,6 +2,6 @@
   "crazyflie-release-version": "nightly",
   "crazyflie-firmware-version": "latest",
   "crazyflie2-nrf-firmware-version": "latest",
-  "aideck-NINA-firmware-version": "2021.00",
+  "aideck-esp-firmware-version": "latest",
   "lighthouse-fpga-version": "V6"
 }

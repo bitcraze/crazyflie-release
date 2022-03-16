@@ -49,7 +49,13 @@ def _download_artifact(uri) -> io.BytesIO:
     return io.BytesIO(data)
 
 
-def _download_latest(path, repository: str, platform: str) -> str:
+def _download_latest(path, repository: str, fw_platform: str) -> str:
+    """
+    Download the latest version of an artifact, on the main branch (not from PRs)
+    :param repository: The repository, for instance 'crazyflie-firmware'
+    :param fw_platform: The firmware platform identifier, for instance 'cf2', 'tag' or 'bolt'. If None, the repo
+                        does not have platforms, for instance deck firmware.
+    """
     _repo_info, _ = urllib.request.urlretrieve(f'https://api.github.com/repos/bitcraze/{repository}')
     repo_info = json.load(open(_repo_info, 'r'))
     default_branch = repo_info["default_branch"]
@@ -62,24 +68,33 @@ def _download_latest(path, repository: str, platform: str) -> str:
     _artifacts, _ = urllib.request.urlretrieve(artifacts_url)
     artifacts = json.load(open(_artifacts, 'r'))
 
+    # Repos with platforms names artifacts: tag-21k1j2h3k1j2h3k1j2h3LongHash
+    # Repos without platforms just uses: 9s9asd9as9das9da9sdLongHash
+
     version = ""
-    for artifact in artifacts['artifacts']:
-        if artifact["name"].startswith(platform):
-            version = artifact['name'].replace(platform + "-", "")
+    found_artifact = None
+    if fw_platform is not None:
+        for artifact in artifacts['artifacts']:
+            if artifact["name"].startswith(fw_platform):
+                found_artifact = artifact
+                version = found_artifact['name'].replace(fw_platform + "-", "")
+                break
+    else:
+        found_artifact = artifacts['artifacts'][0]
+        version = found_artifact['name']
 
-            # Download zip
-            download_url = artifact['archive_download_url']
-            print(f"  Downloading artifact from url {download_url}")
-            archive = _download_artifact(download_url)
+    # Download zip
+    download_url = found_artifact['archive_download_url']
+    print(f"  Downloading artifact from url {download_url}")
+    archive = _download_artifact(download_url)
 
-            # Extract firmware from zip
-            archive = zipfile.ZipFile(archive)
-            firmware_filename = archive.filelist[0].filename
-            firmware = archive.read(firmware_filename)
-            with open(path + download_dir + "/" + firmware_filename, "wb") as dest:
-                dest.write(firmware)
+    # Extract firmware from zip
+    archive = zipfile.ZipFile(archive)
+    firmware_filename = archive.filelist[0].filename
+    firmware = archive.read(firmware_filename)
+    with open(path + download_dir + "/" + firmware_filename, "wb") as dest:
+        dest.write(firmware)
 
-            break
 
     return version
 
@@ -89,8 +104,14 @@ def _download(path, manifest):
     for file_name, file_def in files_items:
 
         if file_def["release"] == "latest":
-            print(f'Downloading latest artifact {file_def["repository"]} {manifest["fw_platform"]}')
-            version = _download_latest(path, file_def['repository'], manifest['fw_platform'])
+            print(f'Downloading latest artifact {file_def["repository"]}, platform: {file_def["platform"]}, ' +
+                  f'fw_platform: {manifest["fw_platform"]}')
+
+            fw_platform = manifest['fw_platform']
+            if file_def["platform"] == 'deck':
+                fw_platform = None
+
+            version = _download_latest(path, file_def['repository'], fw_platform)
             file_def["release"] = version
 
             new_filename = file_name.replace('-latest', '')

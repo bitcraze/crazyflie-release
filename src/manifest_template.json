@@ -25,12 +25,12 @@
             "release": "{{ lighthouse-fpga-version }}",
             "repository": "lighthouse-fpga"
         },
-        "aideck-NINA-firmware.bin": {
+        "aideck-esp-firmware.bin": {
             "platform": "deck",
             "target": "bcAI",
             "type": "fw",
-            "release": "{{ aideck-NINA-firmware-version }}",
-            "repository": "aideck-NINA-firmware"
+            "release": "{{ aideck-esp-firmware-version }}",
+            "repository": "aideck-esp-firmware"
         }
     }
 }
