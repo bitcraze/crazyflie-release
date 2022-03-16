@@ -68,7 +68,9 @@ def _download_latest(path, repository: str, platform: str) -> str:
             version = artifact['name'].replace(platform + "-", "")
 
             # Download zip
-            archive = _download_artifact(artifact['archive_download_url'])
+            download_url = artifact['archive_download_url']
+            print(f"  Downloading artifact from url {download_url}")
+            archive = _download_artifact(download_url)
 
             # Extract firmware from zip
             archive = zipfile.ZipFile(archive)
@@ -87,6 +89,7 @@ def _download(path, manifest):
     for file_name, file_def in files_items:
 
         if file_def["release"] == "latest":
+            print(f'Downloading latest artifact {file_def["repository"]} {manifest["fw_platform"]}')
             version = _download_latest(path, file_def['repository'], manifest['fw_platform'])
             file_def["release"] = version
 
@@ -98,6 +101,7 @@ def _download(path, manifest):
                 'release'] + '/' + file_name
             dest = path + download_dir + "/" + file_name
 
+            print(f'Downloading release artifact {file_def["repository"]} {file_def["release"]} to {file_name}')
             urllib.request.urlretrieve(url, dest)
 
         print(file_name, file_def)
