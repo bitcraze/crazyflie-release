@@ -92,7 +92,9 @@ def _download_latest(path, repository: str, fw_platform: str) -> str:
     archive = zipfile.ZipFile(archive)
     firmware_filename = archive.filelist[0].filename
     firmware = archive.read(firmware_filename)
-    with open(path + download_dir + "/" + firmware_filename, "wb") as dest:
+    full_path = path + download_dir + "/" + firmware_filename
+    print(f"  Writing file to {full_path}")
+    with open(full_path, "wb") as dest:
         dest.write(firmware)
 
     return version
@@ -124,8 +126,6 @@ def _download(path, manifest):
             print(f'Downloading release artifact {file_def["repository"]} {file_def["release"]} to {file_name}')
             urllib.request.urlretrieve(url, dest)
 
-        print(file_name, file_def)
-
 
 def _create_zip(path, manifest, platform):
     zip_name = \
@@ -133,7 +133,9 @@ def _create_zip(path, manifest, platform):
     zf = zipfile.ZipFile(zip_name, mode='w')
     zf.writestr('manifest.json', json.dumps(manifest))
     for file_name in manifest['files']:
-        zf.write(path + download_dir + "/" + file_name, arcname=file_name)
+        full_path = path + download_dir + "/" + file_name
+        print(f"Adding {full_path} to zip")
+        zf.write(full_path, arcname=file_name)
     zf.close()
     print("Created " + zip_name)
 
