@@ -95,7 +95,6 @@ def _download_latest(path, repository: str, fw_platform: str) -> str:
     with open(path + download_dir + "/" + firmware_filename, "wb") as dest:
         dest.write(firmware)
 
-
     return version
 
 
