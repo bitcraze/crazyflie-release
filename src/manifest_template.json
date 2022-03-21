@@ -24,13 +24,6 @@
             "type": "fw",
             "release": "{{ lighthouse-fpga-version }}",
             "repository": "lighthouse-fpga"
-        },
-        "aideck_esp.bin": {
-            "platform": "deck",
-            "target": "bcAI",
-            "type": "fw",
-            "release": "{{ aideck-esp-firmware-version }}",
-            "repository": "aideck-esp-firmware"
         }
     }
 }
