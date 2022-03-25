@@ -1,6 +1,6 @@
 {
-  "crazyflie-release-version": "2022.03-rc4",
-  "crazyflie-firmware-version": "2022.03-rc4",
+  "crazyflie-release-version": "2022.03-rc5",
+  "crazyflie-firmware-version": "2022.03-rc5",
   "crazyflie2-nrf-firmware-version": "2022.03-rc2",
   "lighthouse-fpga-version": "V6"
 }
