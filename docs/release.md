@@ -1,7 +1,9 @@
-# How to release using actions
+# How to release the firmware using actions
 
-Releases are done from Github Actions.
-The overall process is to first tag the repo and then build it on Github Actions. The build will run tests, build binaries, generate a release in github and upload binaries. Continue to read about the crazyflie-release project for handling of full fw releases and release candidates.
+Firmware releases are done from Github Actions.
+The overall process is to first tag the repo and then build it on Github Actions. The build will run tests, build binaries, generate a release in github and upload binaries. 
+
+Continue to read here underneath for a full detailed checklist for handling of full fw releases and release candidates.
 
 ## 1. Preparing the candidate release
 1. Tag the crazyflie-firmware and the crazyflie2-nrf-firmware github repo with a release candidate tag in the form of “2022.03-rc1”
