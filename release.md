@@ -8,7 +8,7 @@ The overall process is to first tag the repo and then build it on Github Actions
 1. In github: Collect issues of both repositories in the “next-release” milestone. 
 1. In github: Rename the milestones to the real release, for instance “2022.03”
 1. In github actions on both firmware's repos: 
-   * select the 'release' flow. Press the dow narrow on 'run workflow'
+   * select the 'release' flow. Press the down arrow on 'run workflow'
    * select the release candidate tag (see screenshot under)
    * press the green button 'Run Workflow'. 
 1. Wait until workflows has been finalized
@@ -19,23 +19,20 @@ The overall process is to first tag the repo and then build it on Github Actions
 ## 2. Make a candidate release firmware zip folder
 1. Locally clone this repository (crazyflie-release)
 1. Change the version.json file to include the candidate releases tags
-1. Do `tb build cf2` to make a zip folder to try out
-1. Use this zip folder to flash the crazyflie through the cfclient :
-    * If the above step works, great! Then you can continue. 
-    * If there is something wrong, please start the process again. 
 1. Tag the crazyflie-release repository with the candidate release tag (2022.03-rc1)
 1. Then got to the actions tab, select release, start the workflow with the candidate release tag (like with the other repositories)
-1. Wait until workflow has been finalized, then publish the release as a pre-release in github.
+1. Wait until workflow has been finalized, go to the draft release. If you want you can try out the zipfolder generated if it flashes
+1. If everything looks okay publish the release as a pre-release in github.
 
 ## 3. Do the Crazyflie testing
 1. Do all the Crazyflie release testing
     * If all is good, continue!
-    * If there is something wrong, fix the issues, and start again to generate a new version of the release candidate for both the firmwares and again of the full crazyflie-release
+    * If there is something wrong, fix the issues, and start again to generate a new version of the release candidate for both the firmware and again of the full crazyflie-release
 
 ## 4. Preparing the real release
 1. Now getting ready for the real release: set the real release tag (like '2022.03') on the crazyflie-firmware and crazyflie2-nrf firmware,
 1. Use the release actions with that tag
-1. Go to the draft release and input the generate thed release notes by  `tb ghrn bitcraze/crazyflie-firmware 2022.03` 
+1. Go to the draft release and input the generate the release notes by  `tb ghrn bitcraze/crazyflie-firmware 2022.03` 
 1. Add an summary release notes that are easier to read
 1. Publish the firmware releases (no pre-release checkbox selected)
 
@@ -43,7 +40,7 @@ The overall process is to first tag the repo and then build it on Github Actions
 1. Tag the crazyflie-release with the version (2022.03)
 1. Use the action workflow to create a draft release
 1. Go to the draft release:
-    *  add some general, human readable notes about the release (based on the release notes for the firmwares)
+    *  add some general, human readable notes about the release (based on the release notes for both the firmware)
     * uncheck the pre-release check
     * press the green button publish
 1. Double check with the zip files if they are in working order (flash them from the cfclient)
