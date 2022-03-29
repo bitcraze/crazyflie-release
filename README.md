@@ -21,3 +21,7 @@ To create a build artifact, call
 
 This will download the files specified in the manifest and package them into
 a zip file.
+
+# Release instructions
+
+Please check out the [firmware release instructions](/docs/release.md) for a checklist of how to use github actions to do a firmware release.
