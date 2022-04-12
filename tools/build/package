@@ -73,7 +73,7 @@ def _download_latest(path, repository: str, fw_platform: str) -> str:
     for info in run_info['workflow_runs']:
         if info['head_branch'] == default_branch:
             artifacts_url = info['artifacts_url']
-            break;
+            break
 
     _artifacts, _ = urllib.request.urlretrieve(artifacts_url)
     artifacts = json.load(open(_artifacts, 'r'))
