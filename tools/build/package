@@ -85,7 +85,7 @@ def _download_latest(path, repository: str, fw_platform: str) -> str:
 
     # Download zip
     download_url = found_artifact['archive_download_url']
-    print(f"  Downloading artifact from url {download_url}")
+    print(f"  Downloading artifact from url {download_url}, version: {version}")
     archive = _download_artifact(download_url)
 
     # Extract firmware from zip
