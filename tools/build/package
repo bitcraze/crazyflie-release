@@ -177,7 +177,6 @@ def _main(argv):
     print("Building release for platform: " + platform)
 
     manifest = _read_manifest(root_dir, platform, versions)
-    print(manifest)
     _download(root_dir, manifest)
     _create_zip(root_dir, manifest, platform)
 
