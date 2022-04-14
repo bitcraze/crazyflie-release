@@ -7,6 +7,8 @@ import urllib.request
 import zipfile
 import io
 
+from collections import OrderedDict
+
 __author__ = 'kristoffer'
 
 download_dir = "/download"
@@ -35,7 +37,12 @@ def _read_manifest(path, platform, versions):
 
         json_data = _apply_template(template, values)
 
-        return json.loads(json_data)
+        data = json.loads(json_data)
+
+        # Remove files that should not be included
+        data['files'] = OrderedDict(filter(lambda pair: pair[1]['release'] != 'not_included', data['files'].items()))
+
+        return data
 
 
 def _download_artifact(uri) -> io.BytesIO:
