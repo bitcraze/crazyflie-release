@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        platform: [cf2, tag]
+        platform: [cf2, tag, bolt]
 
     env:
       PLATFORM: ${{ matrix.platform }}
