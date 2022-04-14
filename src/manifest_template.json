@@ -37,7 +37,7 @@
             "target": "bcAI:gap8",
             "type": "fw",
             "release": "{{ aideck-gap8-examples-version }}",
-            "repository": "aideck-gap-examples"
+            "repository": "aideck-gap8-examples"
         }
     }
 }
