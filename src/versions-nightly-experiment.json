@@ -1,0 +1,8 @@
+{
+  "crazyflie-release-version": "nightly",
+  "crazyflie-firmware-version": "latest:ataffanel/dev-storage-stats",
+  "crazyflie2-nrf-firmware-version": "latest:master",
+  "lighthouse-fpga-version": "V6",
+  "aideck-esp-firmware-version": "latest:main",
+  "aideck-gap8-examples-version": "latest:master"
+}

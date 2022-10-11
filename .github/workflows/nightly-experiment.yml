@@ -1,0 +1,37 @@
+# Build the project using the Bitcraze builder docker image
+name: Nightly
+
+on:
+  workflow_dispatch:
+  schedule:
+  - cron:  '0 0 * * *'
+
+
+jobs:
+  read_targets_from_file:
+    uses: ./.github/workflows/read_build_targets.yml
+
+  build:
+    needs: read_targets_from_file
+    runs-on: ubuntu-20.04
+
+    strategy:
+      matrix:
+        ${{fromJson(needs.read_targets_from_file.outputs.platforms)}}
+
+    env:
+      PLATFORM: ${{ matrix.platform }}
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Check and build
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      run: docker run --rm -v ${PWD}:/module -e "GH_TOKEN=$GH_TOKEN" bitcraze/builder ./tools/build/build $PLATFORM nightly-experiment
+
+    - name: Upload Build Artifact
+      uses: actions/upload-artifact@v2.1.4
+      with:
+        name: nightly-experiment
+        path: firmware-${{ matrix.platform }}-nightly-experiment.zip
