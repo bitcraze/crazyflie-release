@@ -1,5 +1,6 @@
 # Build the project using the Bitcraze builder docker image
-name: Nightly
+# Using definition in nightly-experiment.yml
+name: Nightly experiment
 
 on:
   workflow_dispatch:
