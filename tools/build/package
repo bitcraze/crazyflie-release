@@ -56,31 +56,22 @@ def _download_artifact(uri) -> io.BytesIO:
     return io.BytesIO(data)
 
 
-def _download_latest(path, repository: str, fw_platform: str) -> str:
+def _download_latest(path, repository: str, branch: str, fw_platform: str) -> str:
     """
-    Download the latest version of an artifact, on the main branch (not from PRs)
+    Download the latest version of an artifact, on a specific branch
     :param repository: The repository, for instance 'crazyflie-firmware'
+    :param branch: The branch, for instance 'master'
     :param fw_platform: The firmware platform identifier, for instance 'cf2', 'tag' or 'bolt'. If None, the repo
                         does not have platforms, for instance deck firmware.
     """
-    _repo_info, _ = urllib.request.urlretrieve(f'https://api.github.com/repos/bitcraze/{repository}')
-    repo_info = json.load(open(_repo_info, 'r'))
-    default_branch = repo_info["default_branch"]
 
-    # We want to get all runs for the main branch. It should be possible to filter on branch, but there seems to be a
-    # bug in github (220412) that does not return the latest runs. Get all runs instead and filter after.
-    # run_url = f'https://api.github.com/repos/bitcraze/{repository}/actions/runs?branch={default_branch};pages=1'
-    run_url = f'https://api.github.com/repos/bitcraze/{repository}/actions/runs?;pages=1'
-
+    run_url = f'https://api.github.com/repos/bitcraze/{repository}/actions/runs?branch={branch};pages=1'
     _run_info, _ = urllib.request.urlretrieve(run_url)
     run_info = json.load(open(_run_info, 'r'))
+    if len(run_info['workflow_runs']) == 0:
+        raise Exception(f'No builds found for branch {branch} in {repository}')
 
-    # artifacts_url = run_info['workflow_runs'][0]['artifacts_url']
-    # Do the filtering for now...
-    for info in run_info['workflow_runs']:
-        if info['head_branch'] == default_branch:
-            artifacts_url = info['artifacts_url']
-            break
+    artifacts_url = run_info['workflow_runs'][0]['artifacts_url']
 
     _artifacts, _ = urllib.request.urlretrieve(artifacts_url)
     artifacts = json.load(open(_artifacts, 'r'))
@@ -127,19 +118,24 @@ def _download_latest(path, repository: str, fw_platform: str) -> str:
 def _download(path, manifest):
     files_items = list(manifest['files'].items())
     for file_name, file_def in files_items:
+        release = file_def["release"]
+        if release.startswith('latest:'):
+            branch = release.replace('latest:', '')
+            if len(branch) == 0:
+                raise ValueError('The branch must be supplied when using the "latest" identifier, ' +
+                                 'for instance "latest:master"')
 
-        if file_def["release"] == "latest":
-            print(f'Downloading latest artifact {file_def["repository"]}, platform: {file_def["platform"]}, ' +
-                  f'fw_platform: {manifest["fw_platform"]}')
+            print(f'Downloading latest artifact {file_def["repository"]}, branch: {branch}, ' +
+                  f'platform: {file_def["platform"]}, fw_platform: {manifest["fw_platform"]}')
 
             fw_platform = manifest['fw_platform']
             if file_def["platform"] == 'deck':
                 fw_platform = None
 
-            version = _download_latest(path, file_def['repository'], fw_platform)
+            version = _download_latest(path, file_def['repository'], branch, fw_platform)
             file_def["release"] = version
 
-            new_filename = file_name.replace('-latest', '')
+            new_filename = file_name.replace(f'-{release}', '')
             manifest['files'][new_filename] = manifest['files'].pop(file_name)
         else:
             url = 'https://github.com/bitcraze/' + file_def[

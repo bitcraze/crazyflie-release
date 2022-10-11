@@ -1,8 +1,8 @@
 {
   "crazyflie-release-version": "nightly",
-  "crazyflie-firmware-version": "latest",
-  "crazyflie2-nrf-firmware-version": "latest",
+  "crazyflie-firmware-version": "latest:master",
+  "crazyflie2-nrf-firmware-version": "latest:master",
   "lighthouse-fpga-version": "V6",
-  "aideck-esp-firmware-version": "latest",
-  "aideck-gap8-examples-version": "latest"
+  "aideck-esp-firmware-version": "latest:main",
+  "aideck-gap8-examples-version": "latest:master"
 }
