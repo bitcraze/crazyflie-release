@@ -1,5 +1,5 @@
 {
-  "crazyflie-release-version": "nightly",
+  "crazyflie-release-version": "nightly-experiment",
   "crazyflie-firmware-version": "latest:ataffanel/dev-storage-stats",
   "crazyflie2-nrf-firmware-version": "latest:master",
   "lighthouse-fpga-version": "V6",
