@@ -1,6 +1,6 @@
 {
   "crazyflie-release-version": "nightly-experiment",
-  "crazyflie-firmware-version": "latest:krichardsson/syslink-tests",
+  "crazyflie-firmware-version": "latest:krichardsson/ai-deck-flash",
   "crazyflie2-nrf-firmware-version": "latest:master",
   "lighthouse-fpga-version": "V6",
   "aideck-esp-firmware-version": "latest:main",
