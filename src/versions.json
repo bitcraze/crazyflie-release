@@ -1,7 +1,7 @@
 {
-  "crazyflie-release-version": "2022.12-rc2",
-  "crazyflie-firmware-version": "2022.12-rc1",
-  "crazyflie2-nrf-firmware-version": "2022.12-rc2",
+  "crazyflie-release-version": "2022.12-rc3",
+  "crazyflie-firmware-version": "2022.12-rc2",
+  "crazyflie2-nrf-firmware-version": "2022.12-rc3",
   "lighthouse-fpga-version": "V6",
   "aideck-esp-firmware-version": "2022.09",
   "aideck-gap8-examples-version": "not_included"
