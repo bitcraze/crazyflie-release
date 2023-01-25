@@ -53,6 +53,9 @@ def _download_artifact(uri) -> io.BytesIO:
     if 'GH_TOKEN' in os.environ:
         GH_TOKEN = os.environ['GH_TOKEN']
         headers = {'Authorization': f'token {GH_TOKEN}'}
+        print('Downloading with authorization')
+    else:
+        print('Downloading without authorization')
 
     req = urllib.request.Request(uri, headers=headers)
     with urllib.request.urlopen(req) as response:
