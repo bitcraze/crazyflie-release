@@ -34,9 +34,10 @@ Continue to read here underneath for a full detailed checklist for handling of f
 ## 4. Preparing the real release
 1. Now getting ready for the real release: set the real release tag (like '2022.03') on the crazyflie-firmware and crazyflie2-nrf firmware,
 1. Use the release actions with that tag
-1. Go to the draft release and input the generate the release notes by  `tb ghrn bitcraze/crazyflie-firmware 2022.03`
-1. Add an summary release notes that are easier to read
-1. Publish the firmware releases (no pre-release checkbox selected)
+1. Go to the draft release and input the generate the release notes by `tb ghrn bitcraze/crazyflie-firmware 2022.03` or the automatic functionality in github. 
+2. Add a section containing all deprecated functionality in the code base (search for "deprecated").
+3. Add an summary release notes that are easier to read
+4. Publish the firmware releases (no pre-release checkbox selected)
 
 ## 5 Publish the real release
 1. Tag the crazyflie-release with the version (2022.03)
