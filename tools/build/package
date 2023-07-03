@@ -60,7 +60,7 @@ def _download_artifact(uri) -> io.BytesIO:
     req = urllib.request.Request(uri, headers=headers)
     with urllib.request.urlopen(req) as response:
         data = response.read()
-    assert(data)
+    assert (data)
     return io.BytesIO(data)
 
 
