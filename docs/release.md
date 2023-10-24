@@ -7,7 +7,7 @@ Continue to read here underneath for a full detailed checklist for handling of f
 
 ## 1. Preparing the candidate release
 1. Tag the crazyflie-firmware and the crazyflie2-nrf-firmware github repo with a release candidate tag in the form of “2022.03-rc1”
-1. In github: Collect issues of both repositories in the “next-release” milestone.
+1. In github: Collect pull requests and issues (optional) of both repositories in the “next-release” milestone.
 1. In github: Rename the milestones to the real release, for instance “2022.03”
 1. In github actions on both firmware's repos:
    * select the 'release' flow. Press the down arrow on 'run workflow'
