@@ -16,7 +16,7 @@ jobs:
 
   build:
     needs: read_targets_from_file
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
