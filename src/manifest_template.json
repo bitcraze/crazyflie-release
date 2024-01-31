@@ -1,6 +1,6 @@
 {
-    "version": 1,
-    "subversion": 2,
+    "version": 2,
+    "subversion": 1,
     "fw_platform": "{{ platform }}",
     "release": "{{ crazyflie-release-version }}",
     "files": {
@@ -16,7 +16,16 @@
             "target": "nrf51",
             "type": "fw",
             "release": "{{ crazyflie2-nrf-firmware-version }}",
-            "repository": "crazyflie2-nrf-firmware"
+            "repository": "crazyflie2-nrf-firmware",
+            "requires": ["sd-s130"]
+        },
+        "sd130_bootloader-{{ crazyflie2-nrf-bootloader-version }}.bin": {
+            "platform": "cf2",
+            "target": "nrf51",
+            "type":"bootloader+softdevice",
+            "release": "{{ crazyflie2-nrf-bootloader-version }}",
+            "repository": "crazyflie2-nrf-bootloader",
+            "provides": ["sd-s130"]
         },
         "lighthouse.bin": {
             "platform": "deck",
