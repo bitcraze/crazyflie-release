@@ -1,9 +1,9 @@
 {
   "crazyflie-release-version": "2024.1-rc5",
   "crazyflie-firmware-version": "2023.11",
-  "crazyflie2-nrf-firmware-version": "2024.1RC2",
+  "crazyflie2-nrf-firmware-version": "2024.1-rc3",
   "lighthouse-fpga-version": "V6",
   "aideck-esp-firmware-version": "2023.06",
   "aideck-gap8-examples-version": "not_included",
-  "crazyflie2-nrf-bootloader-version": "2024.1.0RC3"
+  "crazyflie2-nrf-bootloader-version": "2024.1.0RC4"
 }
