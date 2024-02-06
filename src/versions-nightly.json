@@ -5,5 +5,5 @@
   "lighthouse-fpga-version": "V6",
   "aideck-esp-firmware-version": "2023.06",
   "aideck-gap8-examples-version": "not_included",
-  "crazyflie2-nrf-bootloader-version": "2024.1.0RC4"
+  "crazyflie2-nrf-bootloader-version": "2024.1.0RC5"
 }
