@@ -1,7 +1,7 @@
 {
   "crazyflie-release-version": "nightly-experiment",
-  "crazyflie-firmware-version": "latest:master",
-  "crazyflie2-nrf-firmware-version": "latest:toverumar/certification_no_ble",
+  "crazyflie-firmware-version": "latest:toverumar/certification_radiotest",
+  "crazyflie2-nrf-firmware-version": "latest:toverumar/certification_radiotest",
   "lighthouse-fpga-version": "V6",
   "aideck-esp-firmware-version": "2023.06",
   "aideck-gap8-examples-version": "not_included",
