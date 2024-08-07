@@ -91,7 +91,7 @@ def _download_latest(path, repository: str, branch: str, fw_platform: str) -> st
     found_artifact = None
     if fw_platform is not None:
         for artifact in artifacts['artifacts']:
-            if artifact["name"].startswith(fw_platform):
+            if artifact["name"].split('-')[0] == fw_platform:
                 found_artifact = artifact
                 version = found_artifact['name'].replace(fw_platform + "-", "")
                 break
