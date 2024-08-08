@@ -25,7 +25,7 @@ jobs:
       PLATFORM: ${{ matrix.platform }}
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Check and build
       env:
@@ -33,7 +33,7 @@ jobs:
       run: docker run --rm -v ${PWD}:/module -e "GH_TOKEN=$GH_TOKEN" bitcraze/builder ./tools/build/build $PLATFORM nightly
 
     - name: Upload Build Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: nightly
         path: firmware-${{ matrix.platform }}-nightly.zip
