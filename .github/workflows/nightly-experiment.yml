@@ -31,7 +31,7 @@ jobs:
     - name: Check and build
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: docker run --rm -v ${PWD}:/module -e "GH_TOKEN=$GITHUB_TOKEN" bitcraze/builder ./tools/build/build $PLATFORM nightly-experiment
+      run: docker run --rm -v ${PWD}:/module -e "GITHUB_TOKEN=$GITHUB_TOKEN" bitcraze/builder ./tools/build/build $PLATFORM nightly-experiment
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v4
       with:
