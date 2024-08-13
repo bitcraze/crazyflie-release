@@ -10,7 +10,7 @@ on:
 
 jobs:
   read_targets_from_file:
-    uses: bitcraze/workflows/.github/workflows/read_build_targets.yml@dfbc8c23a8ec6d4925d01deb20277839ad1235f1
+    uses: bitcraze/workflows/.github/workflows/read_build_targets.yml@a5173df779e4b0b9c1f57d156cda9b8006901fd2
     with:
       target_file: './build_targets.json'
 
@@ -31,9 +31,10 @@ jobs:
     - name: Check and build
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: docker run --rm -v ${PWD}:/module -e "GH_TOKEN=$GITHUB_TOKEN" bitcraze/builder ./tools/build/build $PLATFORM nightly-experiment
+      run: docker run --rm -v ${PWD}:/module -e "GITHUB_TOKEN=$GITHUB_TOKEN" bitcraze/builder ./tools/build/build $PLATFORM nightly-experiment
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: nightly-experiment
+        name: ${{ matrix.platform }}-nightly-experiment
         path: firmware-${{ matrix.platform }}-nightly-experiment.zip
+        overwrite: true
