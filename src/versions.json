@@ -1,6 +1,6 @@
 {
-  "crazyflie-release-version": "2024.10",
-  "crazyflie-firmware-version": "2024.10",
+  "crazyflie-release-version": "2024.10.1",
+  "crazyflie-firmware-version": "2024.10.1",
   "crazyflie2-nrf-firmware-version": "2024.10",
   "lighthouse-fpga-version": "V6",
   "aideck-esp-firmware-version": "2023.06",
