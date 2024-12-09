@@ -45,31 +45,26 @@ def _read_manifest(path, platform, versions):
         return data
 
 
+def _add_token(request: urllib.request.Request) -> urllib.request.Request:
+    if 'GITHUB_TOKEN' in os.environ:
+        GITHUB_TOKEN = os.environ['GITHUB_TOKEN']
+        request.add_unredirected_header(key="Authorization", val=f"Bearer {GITHUB_TOKEN}")
+    else:
+        print('Calling REST API without authorization.'
+              'This is not recommended, please set the GITHUB_TOKEN environment variable')
+    return request
+
+
 def _download_artifact(uri) -> io.BytesIO:
     # Add auth headers if the github token is available, on the build servers it is, but when running locally it is not.
     # Some operations do not require authentication but we do it anyway to avoid API call rate problems
     request = urllib.request.Request(url=uri)
     request.add_unredirected_header(key="Accept", val="application/vnd.github+json")
-    if 'GITHUB_TOKEN' in os.environ:
-        GITHUB_TOKEN = os.environ['GITHUB_TOKEN']
-        request.add_unredirected_header(key="Authorization", val=f"Bearer {GITHUB_TOKEN}")
-        print('  Downloading with authorization')
-    else:
-        print('  Downloading without authorization')
+    request = _add_token(request)
     with urllib.request.urlopen(request) as response:
         data = response.read()
     assert (data)
     return io.BytesIO(data)
-
-
-def _add_token(request: urllib.request.Request) -> urllib.request.Request:
-    if 'GITHUB_TOKEN' in os.environ:
-        GITHUB_TOKEN = os.environ['GITHUB_TOKEN']
-        request.add_unredirected_header(key="Authorization", val=f"Bearer {GITHUB_TOKEN}")
-        print('  Fetching actions with authorization')
-    else:
-        print('  Fetching actions without authorization')
-    return request
 
 
 def _download_latest(path, repository: str, branch: str, fw_platform: str) -> str:
