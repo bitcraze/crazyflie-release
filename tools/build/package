@@ -62,6 +62,16 @@ def _download_artifact(uri) -> io.BytesIO:
     return io.BytesIO(data)
 
 
+def _add_token(request: urllib.request.Request) -> urllib.request.Request:
+    if 'GITHUB_TOKEN' in os.environ:
+        GITHUB_TOKEN = os.environ['GITHUB_TOKEN']
+        request.add_unredirected_header(key="Authorization", val=f"Bearer {GITHUB_TOKEN}")
+        print('  Fetching actions with authorization')
+    else:
+        print('  Fetching actions without authorization')
+    return request
+
+
 def _download_latest(path, repository: str, branch: str, fw_platform: str) -> str:
     """
     Download the latest version of an artifact, on a specific branch
@@ -71,16 +81,21 @@ def _download_latest(path, repository: str, branch: str, fw_platform: str) -> st
                         does not have platforms, for instance deck firmware.
     """
 
-    run_url = f'https://api.github.com/repos/bitcraze/{repository}/actions/runs?branch={branch};pages=1'
-    _run_info, _ = urllib.request.urlretrieve(run_url)
-    run_info = json.load(open(_run_info, 'r'))
+    run_url = f'https://api.github.com/repos/bitcraze/{repository}/actions/runs?branch={branch}&per_page=1'
+    request = urllib.request.Request(url=run_url)
+    request.add_unredirected_header(key="Accept", val="application/vnd.github+json")
+    request = _add_token(request)
+    with urllib.request.urlopen(request) as response:
+        run_info = json.load(response)
     if len(run_info['workflow_runs']) == 0:
         raise Exception(f'No builds found for branch {branch} in {repository}')
 
     artifacts_url = run_info['workflow_runs'][0]['artifacts_url']
-
-    _artifacts, _ = urllib.request.urlretrieve(artifacts_url)
-    artifacts = json.load(open(_artifacts, 'r'))
+    request = urllib.request.Request(url=artifacts_url)
+    request.add_unredirected_header(key="Accept", val="application/vnd.github+json")
+    request = _add_token(request)
+    with urllib.request.urlopen(request) as response:
+        artifacts = json.load(response)
 
     # Repos with platforms names artifacts: tag-21k1j2h3k1j2h3k1j2h3LongHash
     # Repos without platforms just uses: 9s9asd9as9das9da9sdLongHash
