@@ -67,6 +67,14 @@ def _download_artifact(uri) -> io.BytesIO:
     return io.BytesIO(data)
 
 
+def _get_latest_ok_run(runs: json):
+    for run in runs['workflow_runs']:
+        if run['status'] == 'completed' and (run['event'] == 'schedule'
+                                             or run['event'] == 'push' or run['event'] == 'workflow_dispatch'):
+            return run
+    return None
+
+
 def _download_latest(path, repository: str, branch: str, fw_platform: str) -> str:
     """
     Download the latest version of an artifact, on a specific branch
@@ -76,7 +84,7 @@ def _download_latest(path, repository: str, branch: str, fw_platform: str) -> st
                         does not have platforms, for instance deck firmware.
     """
 
-    run_url = f'https://api.github.com/repos/bitcraze/{repository}/actions/runs?branch={branch}&per_page=1'
+    run_url = f'https://api.github.com/repos/bitcraze/{repository}/actions/runs?branch={branch}&per_page=10'
     request = urllib.request.Request(url=run_url)
     request.add_unredirected_header(key="Accept", val="application/vnd.github+json")
     request = _add_token(request)
@@ -85,7 +93,11 @@ def _download_latest(path, repository: str, branch: str, fw_platform: str) -> st
     if len(run_info['workflow_runs']) == 0:
         raise Exception(f'No builds found for branch {branch} in {repository}')
 
-    artifacts_url = run_info['workflow_runs'][0]['artifacts_url']
+    run = _get_latest_ok_run(run_info)
+    if run is None:
+        raise Exception(f'No completed builds found for branch {branch} in {repository}')
+
+    artifacts_url = run['artifacts_url']
     request = urllib.request.Request(url=artifacts_url)
     request.add_unredirected_header(key="Accept", val="application/vnd.github+json")
     request = _add_token(request)
