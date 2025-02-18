@@ -24,7 +24,6 @@ Continue to read here underneath for a full detailed checklist for handling of f
 1. Tag the crazyflie-release repository with the candidate release tag (2022.03-rc1)
 1. Then got to the actions tab, select release, start the workflow with the candidate release tag (like with the other repositories)
 1. Wait until workflow has been finalized, go to the draft release. If you want you can try out the zipfolder generated if it flashes
-1. If everything looks okay publish the release as a pre-release in github.
 
 ## 3. Do the Crazyflie testing
 1. Do all the Crazyflie release testing
