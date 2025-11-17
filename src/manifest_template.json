@@ -47,6 +47,13 @@
             "type": "fw",
             "release": "{{ aideck-gap8-examples-version }}",
             "repository": "aideck-gap8-examples"
+        },
+        "color-led.bin": {
+            "platform": "deck",
+            "target": ["bcColorLEDBottom:color-fw", "bcColorLEDTop:color-fw"],
+            "type": "fw",
+            "release": "{{ color-led-firmware-version }}",
+            "repository": "color-led-deck-firmware"
         }
     }
 }
