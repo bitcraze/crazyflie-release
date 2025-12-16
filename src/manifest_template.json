@@ -50,7 +50,7 @@
         },
         "color-led.bin": {
             "platform": "deck",
-            "target": ["bcColorLedBot:color-fw", "bcColorLedTop:color-fw"],
+            "target": ["bcColorLedBot:col-fw", "bcColorLedTop:col-fw"],
             "type": "fw",
             "release": "{{ color-led-firmware-version }}",
             "repository": "color-led-deck-firmware"
