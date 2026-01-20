@@ -1,10 +1,10 @@
 {
-  "crazyflie-release-version": "2025.12",
-  "crazyflie-firmware-version": "2025.12",
+  "crazyflie-release-version": "2025.12.1-rc1",
+  "crazyflie-firmware-version": "2025.12.1-rc1",
   "crazyflie2-nrf-firmware-version": "2025.12",
   "lighthouse-fpga-version": "V6",
   "aideck-esp-firmware-version": "2025.02",
   "aideck-gap8-examples-version": "not_included",
   "crazyflie2-nrf-bootloader-version": "2024.10",
-  "color-led-firmware-version": "0.1.0"
+  "color-led-firmware-version": "0.1.1"
 }
